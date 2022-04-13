@@ -12,6 +12,8 @@ use Filament\Tables\Columns\BooleanColumn;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\SelectFilter;
 use App\Models\Group;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Card;
 
 
 
@@ -39,11 +41,18 @@ class BanksRelationManager extends HasManyRelationManager
 
 
 
+                Card::make()
+                ->schema([
+                RichEditor::make('body')  ->maxLength(65535),
+
+])
 
 
-            Forms\Components\Textarea::make('body')
 
-                ->maxLength(65535),
+
+                //   Forms\Components\Textarea::make('body'),
+
+
             ]);
     }
 
@@ -51,16 +60,12 @@ class BanksRelationManager extends HasManyRelationManager
     {
         return $table
         ->columns([
-              Tables\Columns\TextColumn::make('title'),
-            Tables\Columns\TextColumn::make('short'),
-            Tables\Columns\TextColumn::make('body'),
-             Tables\Columns\TextColumn::make('technology.name'),
+              Tables\Columns\TextColumn::make('title')  ->searchable() ,
+            Tables\Columns\TextColumn::make('short')->sortable(),
+            Tables\Columns\TextColumn::make('body') ->limit(50) ->searchable() ,
+             Tables\Columns\TextColumn::make('technology.name')->sortable(),
             Tables\Columns\TextColumn::make('group.name'),
 
-            Tables\Columns\TextColumn::make('created_at')
-                ->dateTime(),
-            Tables\Columns\TextColumn::make('updated_at')
-                ->dateTime(),
         ])
             ->filters([
                 //

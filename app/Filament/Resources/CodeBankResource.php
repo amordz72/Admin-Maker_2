@@ -16,8 +16,8 @@ use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\SelectFilter;
 use App\Models\Group;
 use App\Models\Technology;
-
-
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Card;
 class CodeBankResource extends Resource
 {
     protected static ?string $model = CodeBank::class;
@@ -36,20 +36,21 @@ class CodeBankResource extends Resource
                     ->maxLength(255),
                     Select::make('group_id')
                     ->label('Group')
-                    ->options(Group::all()->pluck('name','id'))
+                    ->options(Group::all()->pluck('name','id'))->required()
                     ->searchable() ,
 
                     Select::make('technology_id')
                     ->label('Technology_id')
                     ->options(Technology::all()->pluck('name','id'))
                     ->searchable()->required(),
+                    Card::make()
+                    ->schema([
+                    RichEditor::make('body')  ->maxLength(65535),
+
+])
+             //   Forms\Components\Textarea::make('body'),
 
 
-
-
-                Forms\Components\Textarea::make('body')
-
-                    ->maxLength(65535),
             ]);
     }
 
@@ -57,12 +58,15 @@ class CodeBankResource extends Resource
     {
         return $table
             ->columns([
-                      Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('short'),    Tables\Columns\TextColumn::make('technology.name'),
-                Tables\Columns\TextColumn::make('group.name'),
+                Tables\Columns\TextColumn::make('title')  ->searchable() ,
+            Tables\Columns\TextColumn::make('short')->sortable(),
 
-                Tables\Columns\TextColumn::make('body'),
-           
+             Tables\Columns\TextColumn::make('technology.name')->sortable(),
+            Tables\Columns\TextColumn::make('group.name'),
+
+  Tables\Columns\TextColumn::make('body')->limit(50) ->searchable() ,
+
+
             ])
             ->filters([
                 //
