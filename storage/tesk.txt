@@ -5,12 +5,12 @@ is_ok
 
 #php artisan make:model Technology -m
 name,
-
 # php artisan make:filament-resource Technology --generate
 
 
-#php artisan make:model Technology -m
+#php artisan make:model CodeBank -m
 name,
+technology_id
 
 # php artisan make:filament-resource Technology --generate
 
