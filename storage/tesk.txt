@@ -1,7 +1,18 @@
+
+
 #php artisan make:model Task -m
 name,
 is_ok
 # php artisan make:filament-resource Task --generate
+
+
+////App CodeBank
+
+#php artisan make:model Group -m
+name,
+
+# php artisan make:filament-resource Group --generate
+
 
 #php artisan make:model Technology -m
 name,
