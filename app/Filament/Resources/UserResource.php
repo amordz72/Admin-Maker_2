@@ -10,7 +10,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-
+use Livewire\Component;
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
@@ -24,14 +24,15 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('email')->unique()
+                Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('password')
+                    Forms\Components\TextInput::make('password')
                     ->password()
                     ->required()
-                    ->maxLength(255),
+                    ->hidden(fn (Component $livewire): bool => $livewire instanceof Pages\EditUser)
+                    ->visible(fn (Component $livewire): bool => $livewire instanceof Pages\CreateUser),
             ]);
     }
 
@@ -48,6 +49,14 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime(),
             ])
+
+            ->actions([
+                Tables\Actions\LinkAction::make('delete')
+                    ->action(fn (Post $record) => $record->delete())
+                    ->requiresConfirmation()
+                    ->color('danger'),
+            ])
+
             ->filters([
                 //
             ]);
