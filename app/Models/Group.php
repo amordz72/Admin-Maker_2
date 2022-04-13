@@ -16,7 +16,7 @@ class Group extends Model
 
     ];
 
-    public function banks(): HasMany
+    public function banks() 
 {
     return $this->hasMany(CodeBank::class, 'group_id', 'id');
 }

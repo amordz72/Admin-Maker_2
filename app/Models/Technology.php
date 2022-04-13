@@ -15,10 +15,10 @@ class Technology extends Model
 
     ];
 
-public function banks(): HasMany
+public function banks()
 {
     return $this->hasMany(CodeBank::class, 'technology_id', 'id');
-}
+}  
 
 
 

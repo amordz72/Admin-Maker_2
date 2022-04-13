@@ -13,12 +13,15 @@ php artisan make:filament-resource Task --generate
 name,
 
 # php artisan make:filament-resource Group --generate
-اضافة تابع لفورم موجود
-php artisan make:filament-has-many GroupResource banks title
+
 
 #php artisan make:model Technology -m
 name,
 # php artisan make:filament-resource Technology --generate
+
+اضافة تابع لفورم موجود
+php artisan make:filament-has-many TechnologyResource banks title
+
 
 
 #php artisan make:model CodeBank -m
