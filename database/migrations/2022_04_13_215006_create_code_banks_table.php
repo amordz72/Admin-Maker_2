@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('code_banks', function (Blueprint $table) {
 
             $table->increments('id');
-            $table->string("title");
-            $table->string("short");
-            $table->text("body");
+            $table->string("title")->nullable();
+            $table->string("short")->nullable();
+            $table->text("body")->nullable();
 
 
             $table->integer('technology_id')->unsigned();
