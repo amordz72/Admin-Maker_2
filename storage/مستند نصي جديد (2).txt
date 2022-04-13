@@ -1,0 +1,43 @@
+project
+
+-------
+name
+db
+
+======
+table
+name
+=======
+cols
+=======
+childs
+=======
+parents
+=======
+
+************************
+migration
+model
+route
+links
+backend : admin-cols-form
+
+
+-------------------------
+userSeeder
+tableSeeder
+
+php artisan make:model project -ms
+
+php artisan make:filament-resource project
+php artisan make:filament-resource child
+
+اضافة تابع لفورم موجود
+php artisan make:filament-has-many TblResource cols name
+
+
+منشي تلقائي
+composer require doctrine/dbal
+
+تكويد فورم للمستخدم مثالا حسب المودال
+php artisan make:filament-resource User --generate
