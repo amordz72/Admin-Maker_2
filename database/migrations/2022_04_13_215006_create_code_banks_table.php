@@ -14,7 +14,22 @@ return new class extends Migration
     public function up()
     {
         Schema::create('code_banks', function (Blueprint $table) {
-            $table->id();
+
+            $table->increments('id');
+            $table->string("title");
+            $table->string("short");
+            $table->text("body");
+
+
+            $table->integer('technology_id')->unsigned();
+            $table->foreign('technology_id')->onDelete('cascade')->references('id')
+                ->on('technologies');
+
+            $table->integer('group_id')->unsigned();
+            $table->foreign('group_id')->onDelete('cascade')->references('id')
+                ->on('groups');
+
+
             $table->timestamps();
         });
     }

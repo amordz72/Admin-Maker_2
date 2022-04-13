@@ -1,7 +1,20 @@
+
+
 #php artisan make:model Task -m
 name,
 is_ok
-# php artisan make:filament-resource Task --generate
+#
+php artisan make:filament-resource Task --generate
+
+
+////App CodeBank
+
+#php artisan make:model Group -m
+name,
+
+# php artisan make:filament-resource Group --generate
+اضافة تابع لفورم موجود
+php artisan make:filament-has-many GroupResource banks title
 
 #php artisan make:model Technology -m
 name,
@@ -12,5 +25,8 @@ name,
 name,
 technology_id
 
-# php artisan make:filament-resource Technology --generate
+# php artisan make:filament-resource CodeBank --generate
 
+
+relation:
+php artisan make:filament-has-many GroupResource banks title

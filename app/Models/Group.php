@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Technology extends Model
+class Group extends Model
 {
     use HasFactory;
+
 
     protected $fillable = [
         'name',
@@ -15,14 +16,8 @@ class Technology extends Model
 
     ];
 
-public function banks(): HasMany
+    public function banks(): HasMany
 {
-    return $this->hasMany(CodeBank::class, 'technology_id', 'id');
+    return $this->hasMany(CodeBank::class, 'group_id', 'id');
 }
-
-
-
-
-
-
 }
