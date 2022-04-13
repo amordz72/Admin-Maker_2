@@ -1,0 +1,16 @@
+#php artisan make:model Task -m
+name,
+is_ok
+# php artisan make:filament-resource Task --generate
+
+#php artisan make:model Technology -m
+name,
+
+# php artisan make:filament-resource Technology --generate
+
+
+#php artisan make:model Technology -m
+name,
+
+# php artisan make:filament-resource Technology --generate
+
