@@ -57,15 +57,12 @@ class CodeBankResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('technology_id'),
-                Tables\Columns\TextColumn::make('group_id'),
-                Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('short'),
+                      Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('short'),    Tables\Columns\TextColumn::make('technology.name'),
+                Tables\Columns\TextColumn::make('group.name'),
+
                 Tables\Columns\TextColumn::make('body'),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime(),
+           
             ])
             ->filters([
                 //

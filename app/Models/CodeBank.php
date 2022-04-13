@@ -17,9 +17,13 @@ class CodeBank extends Model
 
     ];
 
-public function technology() 
+public function technology()
 {
     return $this->belongsTo(Technology::class, 'technology_id', 'id');
+}
+public function group()
+{
+    return $this->belongsTo(Technology::class, 'group_id', 'id');
 }
 
 
