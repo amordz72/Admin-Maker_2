@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('code_banks', function (Blueprint $table) {
 
             $table->increments('id');
-            $table->text("title");
-            $table->text("short");
+            $table->string("title");
+            $table->string("short");
             $table->text("body");
 
 

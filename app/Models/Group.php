@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     use HasFactory;
+
+
+    protected $fillable = [
+        'name',
+
+
+    ];
+
+    public function banks(): HasMany
+{
+    return $this->hasMany(CodeBank::class, 'group_id', 'id');
+}
 }
