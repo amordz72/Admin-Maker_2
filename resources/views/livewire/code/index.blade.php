@@ -62,6 +62,7 @@
                             <th>Null</th>
                             <th>Fill</th>
                             <th>Hidden</th>
+                            <th>Unique</th>
                             <th>Parent</th>
                             <th>Relation</th>
                         </tr>
@@ -75,6 +76,7 @@
                                 <td>{{ $col->null }}</td>
                                 <td>{{ $col->fill }}</td>
                                 <td>{{ $col->hidden }}</td>
+                                <td>{{ $col->unique }}</td>
                                 <td>{{ $col->parent_tbl }}</td>
                                 <td>{{ $col->relation }}</td>
 

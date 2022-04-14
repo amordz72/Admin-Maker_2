@@ -89,16 +89,23 @@ class Index extends Component
     public function migration()
     {
         $c = '';
+        $n = '';
+        $u = '';
 
         foreach ($this->cols as $key => $col) {
 
-            $n = '';
+            if ($col->unique) {
+                $u = "->unique()";
+            }else
+            $u = "";
+
 
             if ($col->null) {
-                $c .= " \$table->$col->type('$col->name')->nullable();\n";
+                $c .= " \$table->$col->type('$col->name')->nullable()$u;\n";
             } else {
-                $c .= " \$table->$col->type('$col->name');\n";
+                $c .= " \$table->$col->type('$col->name')$u;\n";
             }
+
 
             if ($col->type == 'unsignedBigInteger') {
                 $n = $this->names($col->parent_tbl);
@@ -110,7 +117,7 @@ class Index extends Component
 
         $this->body = '';
         $this->body = "
- 
+
               \r\$table->increments('id');
                \r$c
 
