@@ -16,7 +16,7 @@ use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\SelectFilter;
 use App\Models\Group;
 use App\Models\Technology;
-use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Card;
 class CodeBankResource extends Resource
 {
@@ -45,7 +45,10 @@ class CodeBankResource extends Resource
                     ->searchable()->required(),
                     Card::make()
                     ->schema([
-                    RichEditor::make('body')  ->maxLength(65535),
+                        //    RichEditor::make('body')  ->maxLength(65535),
+                        Textarea::make('body')
+                        ->minLength(1)
+                        ->maxLength(65535)
 
 ])
              //   Forms\Components\Textarea::make('body'),

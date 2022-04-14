@@ -12,7 +12,7 @@ use Filament\Tables\Columns\BooleanColumn;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\SelectFilter;
 use App\Models\Group;
-use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Card;
 
 
@@ -43,8 +43,10 @@ class BanksRelationManager extends HasManyRelationManager
 
                 Card::make()
                 ->schema([
-                RichEditor::make('body')  ->maxLength(65535),
-
+            //    RichEditor::make('body')  ->maxLength(65535),
+                Textarea::make('body')
+                ->minLength(1)
+                ->maxLength(65535)
 ])
 
 
