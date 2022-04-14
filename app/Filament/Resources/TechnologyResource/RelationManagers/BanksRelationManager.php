@@ -67,8 +67,9 @@ class BanksRelationManager extends HasManyRelationManager
             Tables\Columns\TextColumn::make('group.name'),
 
         ])
-            ->filters([
-                //
-            ]);
+        ->filters([
+            SelectFilter::make('technology')->relationship('technology', 'name'),
+            SelectFilter::make('group')->relationship('group', 'name')
+        ]);
     }
 }

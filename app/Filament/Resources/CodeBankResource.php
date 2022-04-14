@@ -69,7 +69,8 @@ class CodeBankResource extends Resource
 
             ])
             ->filters([
-                //
+                SelectFilter::make('technology')->relationship('technology', 'name'),
+                SelectFilter::make('group')->relationship('group', 'name')
             ]);
     }
 
