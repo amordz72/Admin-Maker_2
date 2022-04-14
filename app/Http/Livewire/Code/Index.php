@@ -19,7 +19,10 @@ class Index extends Component
         ;
 
     }
-
+public function trm($str)
+{
+  return trim($str);
+}
 
 
 
