@@ -26,7 +26,7 @@ class ColsRelationManager extends HasManyRelationManager
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
                  Select::make('type')
-                ->label('Table')
+                ->label('Type')
                 ->options(Data_type::all()->pluck('name','name'))
                 ->searchable()->required(),
 
