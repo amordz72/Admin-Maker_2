@@ -1,29 +1,35 @@
 <div>
     <div class="container">
         <div class="row">
-            <div class="my-3">
+            <div class="col-md-4">
+                <!-- proj -->
+                <div class="mb-3">
+                    <label for="" class="form-label">Project</label>
+                    <select class="form-control" wire:model='project_id'>
+                        <option value="0">Select</option>
+                        @foreach ($projects as $project)
+                            <option value="{{ $project['id'] }}">{{ $project['name'] }}</option>
+                        @endforeach
 
-
-                @foreach ($codes as $code)
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button text-dark fw-bold" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne{{ $code['id'] }}" aria-expanded="true"
-                                aria-controls="collapseOne">
-                                {{ $code['short'] }}
-                            </button>
-                        </h2>
-                        <div id="collapseOne{{ $code['id'] }}" class="accordion-collapse collapse show"
-                            aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <textarea class="accordion-body form-control" rows="10">
-                                {{$code['body'] }}
-                            </textarea>
-                        </div>
-                    </div>
-
+                    </select>
                 </div>
-                @endforeach
 
+                <!-- tbls -->
+                <div class="mb-3">
+                    <label for="" class="form-label">Project</label>
+                    <select class="form-control" wire:model='tbl_id'>
+                        <option value="0">Select</option>
+                        @foreach ($tbls as $tbl)
+                            <option value="{{ $tbl['id'] }}">{{ $tbl['name'] }}</option>
+                        @endforeach
+
+                    </select>
+                </div>
             </div>
+
+            <div class="col-md-8">
+                {{ $project_id }} <br>
+                {{ $tbl_id }} <br>
+            </div>
+
         </div>
