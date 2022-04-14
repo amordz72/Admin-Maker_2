@@ -86,6 +86,7 @@ class Index extends Component
 
         return $mot;
     }
+    //Migration
     public function migration()
     {
         $c = '';
@@ -96,9 +97,9 @@ class Index extends Component
 
             if ($col->unique) {
                 $u = "->unique()";
-            }else
-            $u = "";
-
+            } else {
+                $u = "";
+            }
 
             if ($col->null) {
                 $c .= " \$table->$col->type('$col->name')->nullable()$u;\n";
@@ -106,13 +107,11 @@ class Index extends Component
                 $c .= " \$table->$col->type('$col->name')$u;\n";
             }
 
-
             if ($col->type == 'unsignedBigInteger') {
                 $n = $this->names($col->parent_tbl);
                 $c .= "\$table->foreign('$col->name')->onDelete('cascade')->references('id')
-    ->on('$n');\n";
+     ->on('$n');\n";
             }
-
         }
 
         $this->body = '';
@@ -127,4 +126,37 @@ class Index extends Component
 
     }
 
+    //Model
+    public function get_model()
+    {
+
+        $h = '';
+        $c = '';
+
+        foreach ($this->cols as $key => $col) {
+
+            if ($col->hidden) {
+                $h .= "\t'$col->name',\n";
+                continue;
+            }
+            if ( $col->fill) {
+                $c .= " \t'$col->name',\n";
+            }
+
+        }
+
+        $this->body = '';
+        $this->body = "
+              \tprotected   \$fillable = [
+                $c
+            ];
+
+
+            protected   \$hidden = [
+               $h
+            ];
+
+       ";
+
+    }
 }

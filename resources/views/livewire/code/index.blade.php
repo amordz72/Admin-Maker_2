@@ -27,7 +27,7 @@
                 </div>
                 <div class="but">
                     <button type="button" class="btn btn-outline-primary" wire:click='migration'>Migration</button>
-                    <button type="button" class="btn btn-outline-secondary">Model</button>
+                    <button type="button" class="btn btn-outline-secondary" wire:click='get_model'>Model</button>
                     <button type="button" class="btn btn-outline-success">Route</button>
                     <div class="d-none">
                         <button type="button" class="btn btn-outline-danger">Danger</button>
