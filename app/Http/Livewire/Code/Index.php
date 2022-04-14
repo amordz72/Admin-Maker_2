@@ -58,5 +58,20 @@ class Index extends Component
 
         }
     }
+    public function clear()
+    {
+        $this->body='';
+    }
+    public function t()
+    {
+        $this->body='';
+    }
+    public function migration()
+    {
+        $this->body='';
+       $this->body='migration';
+
+       
+    }
 
 }

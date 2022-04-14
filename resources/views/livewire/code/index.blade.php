@@ -26,7 +26,7 @@
                     </select>
                 </div>
                 <div class="but">
-                    <button type="button" class="btn btn-outline-primary">Migration</button>
+                    <button type="button" class="btn btn-outline-primary" wire:click='migration'>Migration</button>
                     <button type="button" class="btn btn-outline-secondary">Model</button>
                     <button type="button" class="btn btn-outline-success">Route</button>
                     <div class="d-none">
@@ -39,13 +39,17 @@
 
                 </div>
 
-            <!-- childs -->
-            <ul class="list-group">
-         @foreach ($childs as $ch)
-                    <li class="list-group-item">{{ $ch }}</li>
-         @endforeach
+                <!-- childs -->
+                <div class="bg-info mt-2">
+                    <p class="h5 py-2 mx-2">Children</p>
+                    <ul class="list-group">
+                        @foreach ($childs as $ch)
+                            <li class="list-group-item fw-bold">{{ $ch }}</li>
+                        @endforeach
+                    </ul>
+                </div>
 
-              </ul>
+
             </div>
 
             <div class="col-md-8 pt-4">
