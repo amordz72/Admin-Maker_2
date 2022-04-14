@@ -23,7 +23,8 @@ return new class extends Migration
 
             $table->boolean("fill")->default(1);
             $table->boolean("hidden")->default(0);
-            
+            $table->boolean("unique")->default(0);
+
 
 
             $table->integer('tbl_id')->unsigned();

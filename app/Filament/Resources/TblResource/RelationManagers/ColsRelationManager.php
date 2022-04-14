@@ -33,6 +33,7 @@ class ColsRelationManager extends HasManyRelationManager
                 Toggle::make('null'),
                 Toggle::make('fill')->default(1),
                 Toggle::make('hidden'),
+                Toggle::make('unique'),
                 Select::make('parent_tbl')
                 ->label('Parent :')
                 ->options(Tbl::all()->pluck('name', 'name'))
@@ -60,6 +61,7 @@ class ColsRelationManager extends HasManyRelationManager
             BooleanColumn::make('null'),
             BooleanColumn::make('fill'),
             BooleanColumn::make('hidden'),
+            BooleanColumn::make('unique'),
             Tables\Columns\TextColumn::make('parent_tbl'),
 
             Tables\Columns\TextColumn::make('relation'),

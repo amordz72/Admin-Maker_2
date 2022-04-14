@@ -17,6 +17,7 @@ class Index extends Component
     public $childs = [];
     public $cols = [];
     public $body = '';
+    public $tbl_name = '';
 
     public function render()
     {
@@ -26,13 +27,13 @@ class Index extends Component
         $this->cols = [];
 
         $this->projects = (Project::all());
-
         if ($this->project_id != 0) {
             $this->tbls = (Tbl::where('project_id', $this->project_id)->get());
 
         } else {
             $this->tbl_id = 0;
         }
+
         if ($this->tbl_id != 0) {
             $this->cols = (Col::where('tbl_id', $this->tbl_id)->get());
 
@@ -50,9 +51,12 @@ class Index extends Component
     public function set_childs()
     {
         $this->childs = [];
+        $this->tbl_name = "";
+
         foreach ($this->tbls as $key => $value) {
             if ($value->id == $this->tbl_id) {
                 $this->childs = $value->childs;
+                $this->tbl_name = $value->name;
 
             }
 
@@ -60,18 +64,60 @@ class Index extends Component
     }
     public function clear()
     {
-        $this->body='';
+        $this->body = '';
     }
     public function t()
     {
-        $this->body='';
+        $this->body = '';
+    }
+    public function set()
+    {
+
+    }
+    public function names($mot)
+    {
+        if (substr($mot, -1) == 'y') {
+            $mot = rtrim($mot, 'y') . 'ies';
+        } elseif ($mot == 'child') {
+            $mot = 'children';
+        } else {
+            $mot = $mot . 's';
+        }
+
+        return $mot;
     }
     public function migration()
     {
-        $this->body='';
-       $this->body='migration';
+        $c = '';
 
-       
+        foreach ($this->cols as $key => $col) {
+
+            $n = '';
+
+            if ($col->null) {
+                $c .= " \$table->$col->type('$col->name')->nullable();\n";
+            } else {
+                $c .= " \$table->$col->type('$col->name');\n";
+            }
+
+            if ($col->type == 'unsignedBigInteger') {
+                $n = $this->names($col->parent_tbl);
+                $c .= "\$table->foreign('$col->name')->onDelete('cascade')->references('id')
+    ->on('$n');\n";
+            }
+
+        }
+
+        $this->body = '';
+        $this->body = "
+ 
+              \r\$table->increments('id');
+               \r$c
+
+                \r\$table->timestamps();
+
+       ";
+
     }
 
 }
