@@ -42,13 +42,19 @@
 
 
                 <!-- childs -->
-                <div class="bg-info mt-2">
-                    <p class="h5 py-2 mx-2">Children</p>
+                <div class="  mt-2 fw-bold">
+                 @if ($tbl_softDelete)
+<div class="alert alert-info mb-3">Soft Delete Table</div>
+                 @endif
+
+         @if (count($childs) >0)
+ <div class="alert alert-danger mb-3  ">Children</div>
                     <ul class="list-group">
                         @foreach ($childs as $ch)
                         <li class="list-group-item fw-bold">{{ $ch }}</li>
                         @endforeach
                     </ul>
+         @endif
                 </div>
 
 
@@ -117,7 +123,7 @@
                                         <button type="button"
                                          class="btn btn-sm btn-primary"
                                          wire:click='details_model({{ $col }})'
-                                          {{-- --}} data-bs-toggle="modal"
+                                          data-bs-toggle="modal"
                                            data-bs-target="#colsModel"
 
                                            >

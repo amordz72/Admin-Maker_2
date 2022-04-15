@@ -20,6 +20,7 @@ class Index extends Component
     public $tbl_name = '';
     public $me_casts = '';
     public $me_default = '';
+    public $tbl_softDelete = false;
 
     public function render()
     {
@@ -59,6 +60,7 @@ class Index extends Component
             if ($value->id == $this->tbl_id) {
                 $this->childs = $value->childs;
                 $this->tbl_name = $value->name;
+                $this->tbl_softDelete = $value->softDelete;
 
             }
 
@@ -136,10 +138,11 @@ class Index extends Component
         $c = '';
         $ch = '';
         $par = '';
-
+        $head='';
         foreach ($this->childs as $cld) {
 
             $ch .= "
+
 public function " . $this->names($cld) . "()
 {
     return \$this->hasMany(" . ucfirst($cld) . "::class, '" . $cld . "_id', 'id');
@@ -167,10 +170,29 @@ public function " . $this->names($cld) . "()
                 ";
             }
 
+
         }
+
+        if ($this->tbl_softDelete) {
+            $head.="
+            use Illuminate\Database\Eloquent\Model;
+            use Illuminate\Database\Eloquent\SoftDeletes;
+            class " . ucfirst($this->tbl_name) . " extends Model {
+            use SoftDeletes;
+            protected \$table = '" . $this->names($this->tbl_name) . "';
+            ";
+             }else{
+                $head.="
+                use Illuminate\Database\Eloquent\Model;
+
+                class " . ucfirst($this->tbl_name) . " extends Model {
+
+                ";
+             }
 
         $this->body = '';
         $this->body = "
+        $head
               \tprotected   \$fillable = [
                 $c
             ];

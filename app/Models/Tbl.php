@@ -11,11 +11,13 @@ class Tbl extends Model
     protected $fillable = [
         'name',
         'childs',
+        'softDelete',
         'project_id',
 
     ];
     protected $casts = [
         'childs' => 'array',
+        'softDelete' => 'boolean',
     ];
 
     public function project()
@@ -26,5 +28,5 @@ class Tbl extends Model
     {
         return $this->hasMany(Col::class, 'tbl_id', 'id');
     }
-    
+
 }

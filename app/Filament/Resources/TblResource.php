@@ -14,7 +14,9 @@ use Filament\Tables;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Forms\Components\MultiSelect;
- 
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Toggle;
 
 class TblResource extends Resource
 {
@@ -25,8 +27,12 @@ class TblResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+        ->schema([
+            Card::make()
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
+
+
 
                 MultiSelect::make('childs')
                 ->label('Tables Childs :')
@@ -36,9 +42,13 @@ class TblResource extends Resource
                 Select::make('project_id')
                 ->label('Project :')
                 ->options(project::all()->pluck('name', 'id'))
-                ->searchable()
+                ->searchable(),
 
-            ]);
+                Toggle::make('softDelete')  ->onIcon('heroicon-s-lightning-bolt')
+                ->offIcon('heroicon-s-trash')
+
+            ])->columns(2)
+        ]);
     }
 
     public static function table(Table $table): Table
