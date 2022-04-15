@@ -8,7 +8,7 @@
                     <select class="form-control" wire:model='project_id'>
                         <option value="0">Select</option>
                         @foreach ($projects as $project)
-                            <option value="{{ $project['id'] }}">{{ $project['name'] }}</option>
+                        <option value="{{ $project['id'] }}">{{ $project['name'] }}</option>
                         @endforeach
 
                     </select>
@@ -20,7 +20,7 @@
                     <select class="form-control" wire:model='tbl_id' wire:change='set_childs( )'>
                         <option value="0">Select</option>
                         @foreach ($tbls as $tbl)
-                            <option value="{{ $tbl['id'] }}">{{ $tbl['name'] }}</option>
+                        <option value="{{ $tbl['id'] }}">{{ $tbl['name'] }}</option>
                         @endforeach
 
                     </select>
@@ -44,7 +44,7 @@
                     <p class="h5 py-2 mx-2">Children</p>
                     <ul class="list-group">
                         @foreach ($childs as $ch)
-                            <li class="list-group-item fw-bold">{{ $ch }}</li>
+                        <li class="list-group-item fw-bold">{{ $ch }}</li>
                         @endforeach
                     </ul>
                 </div>
@@ -66,7 +66,7 @@
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact"
-                            type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+                            type="button" role="tab" aria-controls="contact" aria-selected="false">Other</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
@@ -87,18 +87,31 @@
                             </thead>
                             <tbody>
                                 @foreach ($cols as $key => $col)
-                                    <tr>
-                                        <td scope="row"> {{ $key + 1 }}</td> {{--  --}}
-                                        <td>{{ $col->name }}</td>
-                                        <td>{{ $col->type }}</td>
-                                        <td>{{ $col->null }}</td>
-                                        <td>{{ $col->fill }}</td>
-                                        <td>{{ $col->hidden }}</td>
-                                        <td>{{ $col->unique }}</td>
-                                        <td>{{ $col->parent_tbl }}</td>
-                                        <td>{{ $col->relation }}</td>
+                                <tr>
+                                    <td scope="row"> {{ $key + 1 }}</td> {{-- --}}
+                                    <td>{{ $col->name }}</td>
+                                    <td>{{ $col->type }}</td>
+                                    <td>
+                                        <input type="checkbox" class="form-check-input" @checked($col->null)>
 
-                                    </tr>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" class="form-check-input" @checked($col->fill)>
+
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" class="form-check-input" @checked($col->hidden)>
+
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" class="form-check-input" @checked($col->unique)>
+
+                                    </td>
+
+                                    <td>{{ $col->parent_tbl }}</td>
+                                    <td>{{ $col->relation }}</td>
+
+                                </tr>
                                 @endforeach
 
                             </tbody>
