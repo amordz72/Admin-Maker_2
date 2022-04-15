@@ -132,6 +132,21 @@ class Index extends Component
 
         $h = '';
         $c = '';
+        $ch = '';
+
+
+
+foreach ($this->childs as $cld) {
+
+
+
+$ch .= "
+public function ".$this->names($cld)."()
+{
+    return \$this->hasMany(".ucfirst($cld)."::class, '".$cld."_id', 'id');
+}
+";
+}
 
         foreach ($this->cols as $key => $col) {
 
@@ -155,7 +170,7 @@ class Index extends Component
             protected   \$hidden = [
                $h
             ];
-
+            $ch
        ";
 
     }

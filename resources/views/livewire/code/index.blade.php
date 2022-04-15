@@ -14,7 +14,7 @@
                     </select>
                 </div>
 
-                <!-- tbls -->
+                <!-- tbls chbx -->
                 <div class="mb-3">
                     <label for="" class="form-label">Project</label>
                     <select class="form-control" wire:model='tbl_id' wire:change='set_childs( )'>
@@ -25,9 +25,10 @@
 
                     </select>
                 </div>
+
                 <div class="but">
-                    <button type="button" class="btn btn-outline-primary" wire:click='migration'>Migration</button>
-                    <button type="button" class="btn btn-outline-secondary" wire:click='get_model'>Model</button>
+                    <button type="button" class="btn btn-outline-primary" wire:click.prevent='migration'>Migration</button>
+                    <button type="button" class="btn btn-outline-secondary" wire:click.prevent='get_model'>Model</button>
                     <button type="button" class="btn btn-outline-success">Route</button>
                     <div class="d-none">
                         <button type="button" class="btn btn-outline-danger">Danger</button>
@@ -38,6 +39,7 @@
                     </div>
 
                 </div>
+             
 
                 <!-- childs -->
                 <div class="bg-info mt-2">
