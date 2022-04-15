@@ -53,42 +53,68 @@
             </div>
 
             <div class="col-md-8 pt-4">
-                <table class="table table-hover table-bordered table-responsive">
-                    <thead class="text-white text-center bg-dark">
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Null</th>
-                            <th>Fill</th>
-                            <th>Hidden</th>
-                            <th>Unique</th>
-                            <th>Parent</th>
-                            <th>Relation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($cols as $key => $col)
-                            <tr>
-                                <td scope="row"> {{ $key + 1 }}</td> {{--  --}}
-                                <td>{{ $col->name }}</td>
-                                <td>{{ $col->type }}</td>
-                                <td>{{ $col->null }}</td>
-                                <td>{{ $col->fill }}</td>
-                                <td>{{ $col->hidden }}</td>
-                                <td>{{ $col->unique }}</td>
-                                <td>{{ $col->parent_tbl }}</td>
-                                <td>{{ $col->relation }}</td>
 
-                            </tr>
-                        @endforeach
 
-                    </tbody>
-                </table>
-                <div class="mb-3">
-                    <label for="" class="form-label">Code :</label>
-                    <textarea class="form-control" wire:model='body' rows="5"></textarea>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                            type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                            type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact"
+                            type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <table class="table table-hover table-bordered table-responsive fw-bold">
+                            <thead class="text-white text-center bg-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Null</th>
+                                    <th>Fill</th>
+                                    <th>Hidden</th>
+                                    <th>Unique</th>
+                                    <th>Parent</th>
+                                    <th>Relation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($cols as $key => $col)
+                                    <tr>
+                                        <td scope="row"> {{ $key + 1 }}</td> {{--  --}}
+                                        <td>{{ $col->name }}</td>
+                                        <td>{{ $col->type }}</td>
+                                        <td>{{ $col->null }}</td>
+                                        <td>{{ $col->fill }}</td>
+                                        <td>{{ $col->hidden }}</td>
+                                        <td>{{ $col->unique }}</td>
+                                        <td>{{ $col->parent_tbl }}</td>
+                                        <td>{{ $col->relation }}</td>
+
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="mb-3">
+                            <label for="" class="form-label">Code :</label>
+                            <textarea class="form-control fw-bold" wire:model='body' rows="16"></textarea>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
                 </div>
+
+
+
             </div>
 
         </div>
