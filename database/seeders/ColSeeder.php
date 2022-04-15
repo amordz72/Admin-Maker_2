@@ -35,26 +35,25 @@ class ColSeeder extends Seeder
         ];
 
         //
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i < 4; $i++) {
             foreach ($category as $key => $cat) {
                 DB::table('cols')->insert([
-                    'name' => $cat['name'],
+                    'name' => $cat['name'].$i,
                     'type' => $cat['type'],
                     'tbl_id' => $i,
 
                 ]);
             }
-        }
-        for ($i = 1; $i < 6; $i++) {
+
             foreach ($posts as $key => $post) {
                 DB::table('cols')->insert([
-                    'name' => $post['name'],
+                    'name' => $post['name'].$i,
                     'type' => $post['type'],
-                    'tbl_id' => $i,
+                    'tbl_id' => $i + 1,
 
                 ]);
             }
         }
-
+        $i .= 3;
     }
 }
