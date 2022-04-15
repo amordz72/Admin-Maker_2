@@ -39,7 +39,7 @@
                     </div>
 
                 </div>
-             
+
 
                 <!-- childs -->
                 <div class="bg-info mt-2">
@@ -85,6 +85,7 @@
                                     <th>Unique</th>
                                     <th>Parent</th>
                                     <th>Relation</th>
+                                    <th>View</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,7 +93,7 @@
                                 <tr>
                                     <td scope="row"> {{ $key + 1 }}</td> {{-- --}}
                                     <td>{{ $col->name }}</td>
-                                    <td>{{ $col->type }}</td>
+                                    <td>{{ Str::replace('unsignedBigInteger', 'FK', $col->type) }}</td>
                                     <td>
                                         <input type="checkbox" class="form-check-input" @checked($col->null)>
 
@@ -112,6 +113,17 @@
 
                                     <td>{{ $col->parent_tbl }}</td>
                                     <td>{{ $col->relation }}</td>
+                                    <td>
+                                        <button type="button"
+                                         class="btn btn-sm btn-primary"
+                                         wire:click='details_model({{ $col }})'
+                                          {{-- --}} data-bs-toggle="modal"
+                                           data-bs-target="#colsModel"
+
+                                           >
+                                            View
+                                          </button>
+                                    </td>
 
                                 </tr>
                                 @endforeach
@@ -131,5 +143,33 @@
 
 
             </div>
+<!-- Button trigger modal -->
 
+
+  <!-- Modal -->
+  <div  wire:ignore.self  class="modal fade" id="colsModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Other Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <div class="mb-3">
+          <label for="" class="form-label">Casts</label>
+          <textarea class="form-control"  wire:model="me_casts" rows="3"></textarea>
+        </div>
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Default</label>
+          <textarea class="form-control"  wire:model="me_default" rows="3"></textarea>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
         </div>

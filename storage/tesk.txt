@@ -33,3 +33,11 @@ technology_id
 
 relation:
 php artisan make:filament-has-many GroupResource banks title
+
+
+add cols table:
+cast=>array
+default=>value
+
+*dode page :
+add model view default & casts on double click

@@ -18,6 +18,8 @@ class Index extends Component
     public $cols = [];
     public $body = '';
     public $tbl_name = '';
+    public $me_casts = '';
+    public $me_default = '';
 
     public function render()
     {
@@ -135,35 +137,32 @@ class Index extends Component
         $ch = '';
         $par = '';
 
+        foreach ($this->childs as $cld) {
 
-
-foreach ($this->childs as $cld) {
-
-$ch .= "
-public function ".$this->names($cld)."()
+            $ch .= "
+public function " . $this->names($cld) . "()
 {
-    return \$this->hasMany(".ucfirst($cld)."::class, '".$cld."_id', 'id');
+    return \$this->hasMany(" . ucfirst($cld) . "::class, '" . $cld . "_id', 'id');
 }
 ";
-}
+        }
 
-
-        foreach ($this->cols as   $col) {
+        foreach ($this->cols as $col) {
 
             if ($col->hidden) {
                 $h .= "\t'$col->name',\n";
                 continue;
             }
-            if ( $col->fill)  $c .= " \t'$col->name',\n";
+            if ($col->fill) {
+                $c .= " \t'$col->name',\n";
+            }
 
-
-            if ( $col->type==='unsignedBigInteger' ) {
-
+            if ($col->type === 'unsignedBigInteger') {
 
                 $par .= "
-                public function ".$col->parent_tbl."()
+                public function " . $col->parent_tbl . "()
                 {
-                    return \$this->belongsTo(".ucfirst($col->parent_tbl)."::class, '".$col->name."', 'id');
+                    return \$this->belongsTo(" . ucfirst($col->parent_tbl) . "::class, '" . $col->name . "', 'id');
                 }\n
                 ";
             }
@@ -187,4 +186,18 @@ public function ".$this->names($cld)."()
        ";
 
     }
+
+
+
+    public function details_model($obj)
+    {
+        //dd(var_dump(json_encode( $obj['casts']));
+        $str=$obj['casts'];
+
+
+      $this->me_casts =   $str ;
+      $this->me_default =  $obj['default'];
+
+    }
 }
+
