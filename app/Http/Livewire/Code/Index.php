@@ -133,12 +133,11 @@ class Index extends Component
         $h = '';
         $c = '';
         $ch = '';
+        $par = '';
 
 
 
 foreach ($this->childs as $cld) {
-
-
 
 $ch .= "
 public function ".$this->names($cld)."()
@@ -148,14 +147,25 @@ public function ".$this->names($cld)."()
 ";
 }
 
-        foreach ($this->cols as $key => $col) {
+
+        foreach ($this->cols as   $col) {
 
             if ($col->hidden) {
                 $h .= "\t'$col->name',\n";
                 continue;
             }
-            if ( $col->fill) {
-                $c .= " \t'$col->name',\n";
+            if ( $col->fill)  $c .= " \t'$col->name',\n";
+
+
+            if ( $col->type==='unsignedBigInteger' ) {
+
+
+                $par .= "
+                public function ".$col->parent_tbl."()
+                {
+                    return \$this->belongsTo(".ucfirst($col->parent_tbl)."::class, '".$col->name."', 'id');
+                }\n
+                ";
             }
 
         }
@@ -170,6 +180,9 @@ public function ".$this->names($cld)."()
             protected   \$hidden = [
                $h
             ];
+
+            $par
+
             $ch
        ";
 
