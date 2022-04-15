@@ -18,5 +18,9 @@ class CreateSettingsTable extends Migration
 
             $table->timestamps();
         });
+    }public function down()
+    {
+        Schema::dropIfExists('settings');
+        Schema::dropIfExists('health_check_result_history_items');
     }
 }

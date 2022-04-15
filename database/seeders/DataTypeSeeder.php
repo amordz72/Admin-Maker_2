@@ -19,7 +19,9 @@ class DataTypeSeeder extends Seeder
             'string',
             'text',
             'integer',
-            'unsignedBigInteger',
+            'boolean',
+            'unsignedBigInteger', 'date', 'dateTime', 'decimal', 'double', 'float',
+            'integer', 'nullableTimestamps', 'timestamp', 'timestamps', 'rememberToken', 'increments',
         ];
         for ($i = 0; $i < count($types); $i++) {
             DB::table('data_types')->insert([

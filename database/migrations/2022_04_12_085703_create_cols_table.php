@@ -25,8 +25,8 @@ return new class extends Migration
             $table->boolean("hidden")->default(0);
             $table->boolean("unique")->default(0);
 
-            $table->json ("casts")->default('[]')->nullable();
-            $table->json ("default")->default('[]')->nullable();
+            $table->string ("casts")->nullable();
+            $table->string ("default")->nullable();
 
   $table->string("parent_tbl")->nullable();
             $table->string("relation")->nullable();

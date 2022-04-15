@@ -17,7 +17,7 @@ class ProjectSeeder extends Seeder
     public function run()
     {
 
-    for ($i=1; $i < 3; $i++) {
+    for ($i=1; $i < 6; $i++) {
         DB::table('projects')->insert([
             'name' => "project_".$i,
 

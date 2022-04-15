@@ -17,6 +17,8 @@ class Col extends Model
         'parent_tbl',
         'relation',
         'tbl_id',
+        'casts',
+        'default',
 
     ];
     public function tbl()
@@ -24,7 +26,7 @@ class Col extends Model
         return $this->belongsTo(tbl::class,'tbl_id','id');
     }
 
-
+  
 
 
 

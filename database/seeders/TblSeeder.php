@@ -15,24 +15,18 @@ class TblSeeder extends Seeder
     public function run()
     {
 
-        //
-        for ($i = 1; $i < 2; $i++) {
+        $tbls = ["category", "post", "user"];
+
+     for ($i=1; $i < 6; $i++) {
+
+        foreach ($tbls as $key => $t) {
             DB::table('tbls')->insert([
-                'name' => "category",
+                'name' => $t,
                 'project_id' => $i,
 
             ]);
-            DB::table('tbls')->insert([
-                'name' => "post",
-                'project_id' =>  $i,
 
-            ]);
-}
-
-
-
-
-
+        }}
 
     }
 }

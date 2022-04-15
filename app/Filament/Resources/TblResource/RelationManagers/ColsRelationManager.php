@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Forms\Components\Select;
+
 use Filament\Tables\Filters\SelectFilter;
 
 class ColsRelationManager extends HasManyRelationManager
@@ -39,14 +40,39 @@ class ColsRelationManager extends HasManyRelationManager
                 ->options(Tbl::all()->pluck('name', 'name'))
                 ->searchable(),
 
-                Select::make('relation')
-    ->options([
-        'belongsTo' => 'Belongs To',
+                Select::make('relation') ->options([
+                    'belongsTo' => 'Belongs To',
+                    'hasMany' => 'One To Many',
+                            'hasOne' => 'One To One',
+                            'morphToMany' => 'Many To Many',
 
-        'hasMany' => 'One To Many',
-           'hasOne' => 'One To One',
-        'morphToMany' => 'Many To Many',
-    ])
+
+                ]),
+                Select::make('casts')
+
+                    ->options([
+                        'array' => 'Draft',
+                        'boolean' => 'boolean',
+                        'date' => 'date',
+                        'collection' =>   'collection',
+                        'datetime' =>   'datetime',
+                        'immutable_date' =>   'immutable_date',
+                        'immutable_datetime' =>   'immutable_datetime',
+                        'decimal:<digits>' =>   'decimal:<digits>',
+                        'double' =>   'double',
+                         'encrypted' =>  'encrypted',
+                         'encrypted:array' =>  'encrypted:array',
+                         'encrypted:collection' =>  'encrypted:collection',
+                         'encrypted:object' =>  'encrypted:object',
+                         'float' =>  'float',
+                         'integer' =>  'integer',
+                         'object' =>  'object',
+                         'real' =>  'real',
+                         'string' =>  'string',
+                        'timestamp' =>   'timestamp',
+                        'AsStringable::class' =>   'AsStringable class',
+
+                ]) ->searchable(),
             ]);
     }
 
@@ -62,6 +88,10 @@ class ColsRelationManager extends HasManyRelationManager
             BooleanColumn::make('fill'),
             BooleanColumn::make('hidden'),
             BooleanColumn::make('unique'),
+
+
+            Tables\Columns\TextColumn::make('default'),
+
             Tables\Columns\TextColumn::make('parent_tbl'),
 
             Tables\Columns\TextColumn::make('relation'),
