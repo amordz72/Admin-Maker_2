@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,13 +17,11 @@ class DatabaseSeeder extends Seeder
             User::class,
             ProjectSeeder::class,
             DataTypeSeeder::class,
- TblSeeder::class,
+            TblSeeder::class,
+            ColSeeder::class,
             /*
 
-            ColSeeder::class,
-
-            
-            */
+         */
         ]);
     }
 }

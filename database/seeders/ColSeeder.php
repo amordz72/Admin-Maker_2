@@ -14,35 +14,47 @@ class ColSeeder extends Seeder
      */
     public function run()
     {
-        $date = [
-            'name' => "title",
-            'type' => "string",
-            'tbl_id' => 1,
+
+        $category = [
+            [
+                'name' => "category_",
+                'type' => "string",
+            ],
+
         ];
-        DB::table('cols')->insert([
-            'name' => "title",
-            'type' => "string",
-            'tbl_id' => 1,
-
-        ]);
-
-     //
-       for ($i = 1; $i < 6; $i++) {
-
-            DB::table('cols')->insert([
-                'name' => "title" . $i ,
+        $posts = [
+            [
+                'name' => "title_",
                 'type' => "string",
-                'tbl_id' =>  $i,
+            ],
+            [
+                'name' => "body",
+                'type' => "text",
+            ],
 
-            ]);
-            DB::table('cols')->insert([
-                'name' => "body" . $i,
-                'type' => "string",
-                'tbl_id' => $i,
+        ];
 
-            ]);
+        //
+        for ($i = 1; $i < 6; $i++) {
+            foreach ($category as $key => $cat) {
+                DB::table('cols')->insert([
+                    'name' => $cat['name'],
+                    'type' => $cat['type'],
+                    'tbl_id' => $i,
+
+                ]);
+            }
         }
+        for ($i = 1; $i < 6; $i++) {
+            foreach ($posts as $key => $post) {
+                DB::table('cols')->insert([
+                    'name' => $post['name'],
+                    'type' => $post['type'],
+                    'tbl_id' => $i,
 
+                ]);
+            }
+        }
 
     }
 }
