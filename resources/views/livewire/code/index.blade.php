@@ -2,40 +2,49 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <!-- proj -->
-                <div class="mb-3">
-                    <label for="" class="form-label">Project</label>
-                    <select class="form-control" wire:model='project_id'>
-                        <option value="0">Select</option>
-                        @foreach ($projects as $project)
-                        <option value="{{ $project['id'] }}">{{ $project['name'] }}</option>
-                        @endforeach
+                <div class="row">
+                    <div class="col-6">
+                        <!-- proj -->
+                        <div class="mb-3">
+                            <label for="" class="form-label">Project</label>
+                            <select class="form-control" wire:model='project_id'>
+                                <option value="0">Select</option>
+                                @foreach ($projects as $project)
+                                    <option value="{{ $project['id'] }}">{{ $project['name'] }}</option>
+                                @endforeach
 
-                    </select>
-                </div>
+                            </select>
+                        </div>
 
-                <!-- tbls chbx -->
-                <div class="mb-3">
-                    <label for="" class="form-label">Project</label>
-                    <select class="form-control" wire:model='tbl_id' wire:change='set_childs( )'>
-                        <option value="0">Select</option>
-                        @foreach ($tbls as $tbl)
-                        <option value="{{ $tbl['id'] }}">{{ $tbl['name'] }}</option>
-                        @endforeach
+                    </div>
+                    <div class="col-6">
 
-                    </select>
+                        <!-- tbls chbx -->
+                        <div class="mb-3">
+                            <label for="" class="form-label">Project</label>
+                            <select class="form-control" wire:model='tbl_id' wire:change='set_childs( )'>
+                                <option value="0">Select</option>
+                                @foreach ($tbls as $tbl)
+                                    <option value="{{ $tbl['id'] }}">{{ $tbl['name'] }}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="but">
-                    <button type="button" class="btn btn-outline-primary" wire:click.prevent='migration'>Migration</button>
-                    <button type="button" class="btn btn-outline-secondary" wire:click.prevent='get_model'>Model</button>
+                    <button type="button" class="btn btn-outline-primary"
+                        wire:click.prevent='migration'>Migration</button>
+                    <button type="button" class="btn btn-outline-secondary"
+                        wire:click.prevent='get_model'>Model</button>
                     <button type="button" class="btn btn-outline-success">Route</button>
+                    <button type="button" class="btn btn-outline-danger" onclick="copy()">Copy</button>
+                    <button type="button" class="btn btn-outline-info" wire:click="getStr">Get</button>
+        <button type="button" class="btn btn-outline-dark" wire:click="clear">Clear</button>
                     <div class="d-none">
-                        <button type="button" class="btn btn-outline-danger">Danger</button>
 
-                        <button type="button" class="btn btn-outline-info">Info</button>
 
-                        <button type="button" class="btn btn-outline-dark">Dark</button>
                     </div>
 
                 </div>
@@ -43,18 +52,18 @@
 
                 <!-- childs -->
                 <div class="  mt-2 fw-bold">
-                 @if ($tbl_softDelete)
-<div class="alert alert-info mb-3">Soft Delete Table</div>
-                 @endif
+                    @if ($tbl_softDelete)
+                        <div class="alert alert-info mb-3">Soft Delete Table</div>
+                    @endif
 
-         @if (count($childs) >0)
- <div class="alert alert-danger mb-3  ">Children</div>
-                    <ul class="list-group">
-                        @foreach ($childs as $ch)
-                        <li class="list-group-item fw-bold">{{ $ch }}</li>
-                        @endforeach
-                    </ul>
-         @endif
+                    @if (count($childs) > 0)
+                        <div class="alert alert-danger mb-3  ">Children</div>
+                        <ul class="list-group">
+                            @foreach ($childs as $ch)
+                                <li class="list-group-item fw-bold">{{ $ch }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
 
 
@@ -96,42 +105,42 @@
                             </thead>
                             <tbody>
                                 @foreach ($cols as $key => $col)
-                                <tr>
-                                    <td scope="row"> {{ $key + 1 }}</td> {{-- --}}
-                                    <td>{{ $col->name }}</td>
-                                    <td>{{ Str::replace('unsignedBigInteger', 'FK', $col->type) }}</td>
-                                    <td>
-                                        <input type="checkbox" class="form-check-input" @checked($col->null)>
+                                    <tr>
+                                        <td scope="row"> {{ $key + 1 }}</td> {{--  --}}
+                                        <td>{{ $col->name }}</td>
+                                        <td>{{ Str::replace('unsignedBigInteger', 'FK', $col->type) }}</td>
+                                        <td>
+                                            <input type="checkbox" class="form-check-input"
+                                                @checked($col->null)>
 
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" class="form-check-input" @checked($col->fill)>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" class="form-check-input"
+                                                @checked($col->fill)>
 
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" class="form-check-input" @checked($col->hidden)>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" class="form-check-input"
+                                                @checked($col->hidden)>
 
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" class="form-check-input" @checked($col->unique)>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" class="form-check-input"
+                                                @checked($col->unique)>
 
-                                    </td>
+                                        </td>
 
-                                    <td>{{ $col->parent_tbl }}</td>
-                                    <td>{{ $col->relation }}</td>
-                                    <td>
-                                        <button type="button"
-                                         class="btn btn-sm btn-primary"
-                                         wire:click='details_model({{ $col }})'
-                                          data-bs-toggle="modal"
-                                           data-bs-target="#colsModel"
+                                        <td>{{ $col->parent_tbl }}</td>
+                                        <td>{{ $col->relation }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-primary"
+                                                wire:click='details_model({{ $col }})' data-bs-toggle="modal"
+                                                data-bs-target="#colsModel">
+                                                View
+                                            </button>
+                                        </td>
 
-                                           >
-                                            View
-                                          </button>
-                                    </td>
-
-                                </tr>
+                                    </tr>
                                 @endforeach
 
                             </tbody>
@@ -140,7 +149,7 @@
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="mb-3">
                             <label for="" class="form-label">Code :</label>
-                            <textarea class="form-control fw-bold" wire:model='body' rows="16"></textarea>
+                            <textarea class="form-control fw-bold" id="textA" wire:model='body' rows="16"></textarea>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
@@ -149,33 +158,55 @@
 
 
             </div>
-<!-- Button trigger modal -->
+            <!-- Button trigger modal -->
 
 
-  <!-- Modal -->
-  <div  wire:ignore.self  class="modal fade" id="colsModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Other Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-        <div class="mb-3">
-          <label for="" class="form-label">Casts</label>
-          <textarea class="form-control"  wire:model="me_casts" rows="3"></textarea>
-        </div>
-        </div>
-        <div class="mb-3">
-          <label for="" class="form-label">Default</label>
-          <textarea class="form-control"  wire:model="me_default" rows="3"></textarea>
-        </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- Modal -->
+            <div wire:ignore.self class="modal fade" id="colsModel" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Other Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Casts</label>
+                                <textarea class="form-control" wire:model="me_casts" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Default</label>
+                            <textarea class="form-control" wire:model="me_default" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <script>
+            function copy() {
+                /* Get the text field */
+                var copyText = document.getElementById("textA");
+
+                /* Select the text field */
+                copyText.select();
+                copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+                /* Copy the text inside the text field */
+                navigator.clipboard.writeText(copyText.value);
+
+                /* Alert the copied text
+                alert("Copied the text: " + copyText.value);*/
+            }
+
+
+        </script>
+
     </div>
-  </div>
-        </div>

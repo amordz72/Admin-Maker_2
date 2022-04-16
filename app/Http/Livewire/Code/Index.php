@@ -138,8 +138,8 @@ class Index extends Component
         $c = '';
         $ch = '';
         $par = '';
-        $head='';
-        $casts='';
+        $head = '';
+        $casts = '';
         foreach ($this->childs as $cld) {
 
             $ch .= "public function " . $this->names($cld) . "()
@@ -147,7 +147,6 @@ class Index extends Component
     return \$this->hasMany(" . ucfirst($cld) . "::class, '" . $cld . "_id', 'id');
 }
 ";
-
 
         }
         //Loop columns array
@@ -157,7 +156,7 @@ class Index extends Component
                 $h .= "'$col->name',\r";
                 continue;
             }
-            if ($col->casts!='') {
+            if ($col->casts != '') {
                 $casts .= "'$col->name' => '$col->casts',\r";
                 continue;
             }
@@ -175,28 +174,23 @@ class Index extends Component
                 ";
             }
 
-
         }
 
-                     if ($this->tbl_softDelete) {
-                        $head.="\ruse Illuminate\Database\Eloquent\Model;
+        if ($this->tbl_softDelete) {
+            $head .= "\ruse Illuminate\Database\Eloquent\Model;
 
                         use Illuminate\Database\Eloquent\SoftDeletes;
                         class " . ucfirst($this->tbl_name) . " extends Model {
                         use SoftDeletes;
                         protected \$table = '" . $this->names($this->tbl_name) . "';
                         ";
-                        }else{
-                            $head.="use Illuminate\Database\Eloquent\Model;
+        } else {
+            $head .= "use Illuminate\Database\Eloquent\Model;
                             \rclass " . ucfirst($this->tbl_name) . " extends Model {";
- }
+        }
 
-
-
-
-
-          $this->body = '';
-          $this->body = "\r$head
+        $this->body = '';
+        $this->body = "\r$head
                                         \rprotected   \$fillable = [\r$c\n];
                                         \rprotected   \$hidden = [ \r$h   \r];
 
@@ -204,22 +198,22 @@ class Index extends Component
                             \r$par
                             \r$ch";
 
-
-
-
     }
-
-
 
     public function details_model($obj)
     {
         //dd(var_dump(json_encode( $obj['casts']));
-        $str=$obj['casts'];
+        $str = $obj['casts'];
 
+        $this->me_casts = $str;
+        $this->me_default = $obj['default'];
 
-      $this->me_casts =   $str ;
-      $this->me_default =  $obj['default'];
+    }
+
+    public function getStr()
+    {
+       // $this->body = str_replace("\n", "\n", $this->body);
+        $this->body = str_replace("$", "\\$", $this->body);
 
     }
 }
-
