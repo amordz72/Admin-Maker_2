@@ -139,25 +139,30 @@ class Index extends Component
         $ch = '';
         $par = '';
         $head='';
+        $casts='';
         foreach ($this->childs as $cld) {
 
-            $ch .= "
-
-public function " . $this->names($cld) . "()
+            $ch .= "public function " . $this->names($cld) . "()
 {
     return \$this->hasMany(" . ucfirst($cld) . "::class, '" . $cld . "_id', 'id');
 }
 ";
-        }
 
+
+        }
+        //Loop columns array
         foreach ($this->cols as $col) {
 
             if ($col->hidden) {
-                $h .= "\t'$col->name',\n";
+                $h .= "'$col->name',\r";
+                continue;
+            }
+            if ($col->casts!='') {
+                $casts .= "'$col->name' => '$col->casts',\r";
                 continue;
             }
             if ($col->fill) {
-                $c .= " \t'$col->name',\n";
+                $c .= "'$col->name',\r";
             }
 
             if ($col->type === 'unsignedBigInteger') {
@@ -173,39 +178,34 @@ public function " . $this->names($cld) . "()
 
         }
 
-        if ($this->tbl_softDelete) {
-            $head.="
-            use Illuminate\Database\Eloquent\Model;
-            use Illuminate\Database\Eloquent\SoftDeletes;
-            class " . ucfirst($this->tbl_name) . " extends Model {
-            use SoftDeletes;
-            protected \$table = '" . $this->names($this->tbl_name) . "';
-            ";
-             }else{
-                $head.="
-                use Illuminate\Database\Eloquent\Model;
+                     if ($this->tbl_softDelete) {
+                        $head.="\ruse Illuminate\Database\Eloquent\Model;
 
-                class " . ucfirst($this->tbl_name) . " extends Model {
-
-                ";
-             }
-
-        $this->body = '';
-        $this->body = "
-        $head
-              \tprotected   \$fillable = [
-                $c
-            ];
+                        use Illuminate\Database\Eloquent\SoftDeletes;
+                        class " . ucfirst($this->tbl_name) . " extends Model {
+                        use SoftDeletes;
+                        protected \$table = '" . $this->names($this->tbl_name) . "';
+                        ";
+                        }else{
+                            $head.="use Illuminate\Database\Eloquent\Model;
+                            \rclass " . ucfirst($this->tbl_name) . " extends Model {";
+ }
 
 
-            protected   \$hidden = [
-               $h
-            ];
 
-            $par
 
-            $ch
-       ";
+
+          $this->body = '';
+          $this->body = "\r$head
+                                        \rprotected   \$fillable = [\r$c\n];
+                                        \rprotected   \$hidden = [ \r$h   \r];
+
+                            \rprotected \$casts = [\n$casts\n];
+                            \r$par
+                            \r$ch";
+
+
+
 
     }
 
